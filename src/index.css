@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --primary: #53B175;
+    --text-primary: #181725;
+    --text-secondary: #7C7C7C;
+    --border: #E2E2E2;
+    --background: #FFFFFF;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+  }
+  
+  body {
+    @apply text-(--text-primary) bg-(--background) antialiased font-sans;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Utilities for hiding scrollbar but allowing scrolling */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
