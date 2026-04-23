@@ -32,7 +32,7 @@ export function BottomNav() {
               <div className="relative">
                 <Icon size={24} strokeWidth={isActive ? 2.5 : 2} className={!isActive ? 'opacity-80' : ''} />
                 {item.badge && item.badge > 0 && (
-                  <span className="absolute -top-1 -right-2 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-sm ring-2 ring-white">
                     {item.badge}
                   </span>
                 )}

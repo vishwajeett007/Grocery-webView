@@ -1,7 +1,10 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Link, useLocation } from 'react-router-dom';
-import { Store, Search, ShoppingCart, Heart } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Store, Search, ShoppingCart, Heart, LogOut } from 'lucide-react';
+import { useAuthStore } from './store/useAuthStore';
+import logo from './assets/logo.png';
 import { SplashPage } from './pages/SplashPage';
+import { LoadingPage } from './pages/LoadingPage';
 import { OnboardingPage } from './pages/OnboardingPage';
 import { LoginPage } from './pages/LoginPage';
 import { SignUpPage } from './pages/SignUpPage';
@@ -23,6 +26,7 @@ function AppRoutes() {
     <div className="h-dvh w-full overflow-y-auto overflow-x-hidden hide-scrollbar bg-white relative lg:h-full">
       <Routes>
         <Route path="/" element={<SplashPage />} />
+        <Route path="/loading" element={<LoadingPage />} />
         <Route path="/onboarding" element={<OnboardingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
@@ -49,7 +53,9 @@ function AppRoutes() {
 
 function App() {
   const location = useLocation();
-  const isAuthFlow = ['/', '/onboarding', '/login', '/signup', '/otp', '/location', '/order-success', '/order-failure'].includes(location.pathname);
+  const navigate = useNavigate();
+  const logout = useAuthStore((state) => state.logout);
+  const isAuthFlow = ['/', '/loading', '/onboarding', '/login', '/signup', '/otp', '/location', '/order-success', '/order-failure'].includes(location.pathname);
 
   const desktopNavItems = [
     { icon: Store, label: 'Shop', path: '/home' },
@@ -62,14 +68,14 @@ function App() {
     <div className="min-h-dvh w-full bg-[#f3f7f1] overflow-hidden font-sans relative">
       <div className="hidden lg:block absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-[-15%] left-[-5%] w-140 h-140 bg-[#d8f0de] rounded-full blur-3xl opacity-70"></div>
-        <div className="absolute bottom-[-20%] right-[-5%] w-128 h-128 bg-[#c7e7d1] rounded-full blur-3xl opacity-70"></div>
+        <div className="absolute bottom-[-20%] right-[-5%] w-lg h-lg bg-[#c7e7d1] rounded-full blur-3xl opacity-70"></div>
       </div>
 
       <div className="hidden lg:flex relative z-10 h-dvh w-full p-6 gap-6">
         {!isAuthFlow && (
           <aside className="w-72 rounded-3xl border border-[#dfe8de] bg-white/80 backdrop-blur-md p-6 flex flex-col shadow-[0_16px_40px_rgba(24,23,37,0.08)]">
             <div className="flex items-center gap-3 mb-10">
-              <div className="w-10 h-10 rounded-xl bg-[#53B175] text-white flex items-center justify-center font-bold">N</div>
+              <img src={logo} alt="Nectar logo" className="w-10 h-10 object-contain" />
               <div>
                 <p className="text-[#181725] font-bold text-lg leading-tight">Nectar</p>
                 <p className="text-[#7C7C7C] text-xs">Groceries, but smarter</p>
@@ -98,6 +104,18 @@ function App() {
               <p className="text-sm font-semibold text-[#181725]">Freshness Delivered</p>
               <p className="text-xs text-[#7C7C7C] mt-1">Browse seasonal picks and quick reorders from your desktop.</p>
             </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                logout();
+                navigate('/login');
+              }}
+              className="mt-4 flex items-center justify-center gap-2 rounded-2xl border border-[#dfe8de] px-4 py-3 text-[#181725] font-semibold hover:bg-[#f4faf5] transition-colors"
+            >
+              <LogOut size={18} />
+              Logout
+            </button>
           </aside>
         )}
 

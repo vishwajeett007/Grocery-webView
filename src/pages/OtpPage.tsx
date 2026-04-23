@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
+import { AuthSplitLayout } from '../components/AuthSplitLayout';
 
 export function OtpPage() {
   const navigate = useNavigate();
@@ -36,10 +37,10 @@ export function OtpPage() {
     }
   };
 
-  return (
-    <div className="min-h-[100dvh] bg-white flex flex-col">
+  const otpContent = (
+    <>
       <div className="p-4">
-        <button onClick={() => navigate(-1)} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+        <button aria-label="Go back" title="Go back" onClick={() => navigate(-1)} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
           <ChevronLeft size={24} />
         </button>
       </div>
@@ -52,6 +53,8 @@ export function OtpPage() {
           {otp.map((digit, index) => (
             <input
               key={index}
+              aria-label={`OTP digit ${index + 1}`}
+              title={`OTP digit ${index + 1}`}
               ref={el => { inputs.current[index] = el; }}
               type="text"
               maxLength={1}
@@ -64,9 +67,11 @@ export function OtpPage() {
         </div>
 
         <div className="mt-auto pb-10 flex justify-between items-center">
-          <button className="text-[#53B175] font-semibold">Resend Code</button>
-          
-          <button 
+          <button aria-label="Resend code" title="Resend code" className="text-[#53B175] font-semibold">Resend Code</button>
+
+          <button
+            aria-label="Continue"
+            title="Continue"
             onClick={handleNext}
             disabled={otp.join('').length !== 4}
             className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors ${
@@ -77,6 +82,13 @@ export function OtpPage() {
           </button>
         </div>
       </div>
-    </div>
+    </>
+  );
+
+  return (
+    <AuthSplitLayout
+      desktopContent={<div className="w-full max-w-md min-h-full flex flex-col">{otpContent}</div>}
+      mobileContent={<div className="min-h-dvh bg-white flex flex-col">{otpContent}</div>}
+    />
   );
 }

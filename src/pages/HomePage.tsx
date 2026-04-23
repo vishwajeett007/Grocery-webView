@@ -2,6 +2,7 @@ import { MapPin, Search, ShoppingCart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
 import { useCartStore } from '../store/useCartStore';
+import logo from '../assets/logo.png';
 import { mockProducts } from '../data/mock';
 import { ProductCard } from '../components/ProductCard';
 import { BottomNav } from '../components/BottomNav';
@@ -25,10 +26,7 @@ export function HomePage() {
       <div className="pt-8 pb-4 px-6 lg:max-w-7xl lg:w-full lg:mx-auto lg:px-10 lg:pt-10">
         <div className="flex flex-col items-center gap-2 lg:flex-row lg:justify-between">
           <div className="flex flex-col items-center gap-2 lg:items-start">
-            <svg width="26" height="31" viewBox="0 0 26 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12.0163 30.2477C12.0163 30.2477 8.69796 27.1521 4.94914 21.5249C1.20032 15.8978 -0.39211 11.0118 0.0877239 7.58645C0.567558 4.16113 2.74281 1.7351 5.56631 1.48002C8.38981 1.22493 11.077 3.12946 12.6319 5.91154C14.1868 8.69363 14.4502 12.0914 13.1829 15.2047C11.9157 18.318 12.0163 30.2477 12.0163 30.2477Z" fill="#F3603F"/>
-              <path d="M17.9046 21.2844C21.6027 20.2945 24.1804 17.6963 25.3797 13.9818C26.579 10.2673 26.1741 6.39209 24.305 4.06646C22.4359 1.74083 18.7797 3.67137 16.292 6.35382C13.8043 9.03627 13.0108 12.5152 14.1111 15.7261C15.2114 18.9371 17.9046 21.2844 17.9046 21.2844Z" fill="#53B175"/>
-            </svg>
+            <img src={logo} alt="Nectar logo" className="w-10 h-10 object-contain" />
 
             <div className="flex items-center gap-2 text-[#4C4F4D] font-semibold">
               <MapPin size={20} />
@@ -43,10 +41,10 @@ export function HomePage() {
         </div>
       </div>
 
-      <div className="px-6 mb-8 lg:max-w-7xl lg:w-full lg:mx-auto lg:px-10 lg:grid lg:grid-cols-3 lg:gap-6 lg:items-stretch">
+      <div className="px-6 mb-8 space-y-5 lg:max-w-7xl lg:w-full lg:mx-auto lg:px-10 lg:grid lg:grid-cols-3 lg:gap-6 lg:items-stretch">
         <div 
           onClick={() => navigate('/search')}
-          className="w-full bg-[#F2F3F2] flex items-center gap-3 px-4 py-4 rounded-2xl cursor-text lg:col-span-2"
+          className="w-full bg-[#F2F3F2] flex items-center gap-3 px-4 py-3 rounded-2xl cursor-text lg:col-span-2"
         >
           <Search size={20} className="text-[#181725]" />
           <span className="text-[#7C7C7C] font-semibold">Search Store</span>
